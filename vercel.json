@@ -1,0 +1,8 @@
+{
+"rewrites": [
+{
+"source": "/school/:match*",
+"destination": "https://mff-notes.vercel.app/:match*"
+}
+]
+}
