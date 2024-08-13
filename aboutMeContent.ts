@@ -19,6 +19,9 @@ Technically, I'm proficient in:
 • <span class="text-orange-300">C#</span> 🖥️
 • <span class="text-orange-300">Java</span> ☕
 • <span class="text-orange-300">Python</span> 🐍
+• <span class="text-orange-300">TypeScript</span> 🟦
+• <span class="text-orange-300">NestJS</span> 🦅
+• <span class="text-orange-300">NextJS</span> 📄
 
 I'm also familiar with:
 • Kotlin 📱

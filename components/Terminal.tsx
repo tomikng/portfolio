@@ -162,11 +162,11 @@ const Terminal: React.FC = () => {
       case "skills":
         startTyping(`
 <span class="text-cyan-300">[ Technical Skills ]</span> 💻
-• Frontend: React ⚛️, JavaScript 🌐
-• Backend: Django 🐍, Node.js 🟢, PHP 🐘
+• Frontend: React ⚛️, JavaScript 🌐, TypeScript 🟦
+• Backend: Django 🐍, Node.js 🟢, PHP 🐘, NestJS 🦅
 • Languages: Python 🐍, C# 🖥️, Java ☕, Kotlin 📱, C++ 🖥️
-• Database: SQL 📊
-• Others: LaTeX 📄
+• Database: SQL 📊, PostgreSQL 🐘, MariaDB 🐬, MongoDB 🍃, Firebase 🔥, SQLite 📦, Redis 🔄, ...
+• Others: LaTeX 📄, Docker 🐳
       `);
         break;
       case "projects":
@@ -210,7 +210,12 @@ const Terminal: React.FC = () => {
    Improved Recommendation Systems using forked EasyStudy Framework
    • <span class="text-green-300">Note:</span> Forked from pdokoupil/EasyStudy
    • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/Higher-order-EASE" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
-      `);
+
+8. <span class="text-yellow-300">Android-todo-list</span>
+    • <span class="text-green-300">Tech Stack:</span> Kotlin
+    • <span class="text-green-300">Description:</span> Simple Android todo list
+    • <span class="text-green-300">Link:</span> <a href="https://gitlab.mff.cuni.cz/nguyeha/android-todo-list" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitLab</a>  
+`);
         break;
       case "contact":
         startTyping(`
