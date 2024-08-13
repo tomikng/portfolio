@@ -31,7 +31,7 @@ I'm also familiar with:
 • PHP 🐘
 • LaTeX 📄
 
-Additionally, I work with <span class="text-orange-300">Node.js</span> 🟢, <span class="text-orange-300">NestJS</span>, <span class="text-orange-300">NextJS</span>.
+Additionally, I work with <span class="text-orange-300">Node.js</span> 🟢.
 
 I'm fluent in <span class="text-pink-300">Czech</span> 🇨🇿, <span class="text-pink-300">Vietnamese</span> 🇻🇳, and have advanced
 <span class="text-pink-300">English</span> 🇬🇧 skills.
