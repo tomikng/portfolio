@@ -24,11 +24,19 @@ const Terminal: React.FC = () => {
   const [output, setOutput] = useState<
     Array<{ text: string; color: string; isHtml?: boolean }>
   >([
+    { text: "Welcome to my portfolio!", color: "text-cyan-300" },
     {
-      text: 'Welcome to my portfolio! Type "help" to see available commands.',
-      color: "text-cyan-300",
+      text: "For the best experience, please use a desktop browser. 🖥️",
+      color: "text-yellow-300",
     },
+    {
+      text: "However, this site is also responsive for mobile devices. 📱",
+      color: "text-yellow-300",
+    },
+    { text: 'Type "help" to see available commands.', color: "text-cyan-300" },
   ]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +64,21 @@ const Terminal: React.FC = () => {
   }, [output, displayedText]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+    const value = e.target.value;
+    setInput(value);
+    updateSuggestions(value);
+    setSelectedSuggestionIndex(-1);
+  };
+
+  const updateSuggestions = (value: string) => {
+    if (value.length > 0) {
+      const matchedCommands = Object.keys(commands).filter((cmd) =>
+        cmd.toLowerCase().startsWith(value.toLowerCase()),
+      );
+      setSuggestions(matchedCommands);
+    } else {
+      setSuggestions([]);
+    }
   };
 
   const handleInputSubmit = (e: React.FormEvent) => {
@@ -67,6 +89,33 @@ const Terminal: React.FC = () => {
     ]);
     processCommand(input);
     setInput("");
+    setSuggestions([]);
+    setSelectedSuggestionIndex(-1);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setInput(suggestion);
+    setSuggestions([]);
+    setSelectedSuggestionIndex(-1);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Tab" && suggestions.length > 0) {
+      e.preventDefault();
+      setSelectedSuggestionIndex((prevIndex) =>
+        prevIndex + 1 >= suggestions.length ? 0 : prevIndex + 1,
+      );
+    } else if (e.key === "Enter") {
+      if (selectedSuggestionIndex !== -1) {
+        e.preventDefault();
+        handleSuggestionClick(suggestions[selectedSuggestionIndex]);
+      } else {
+        handleInputSubmit(e);
+      }
+    }
   };
 
   // Prevent zooming on mobile when focusing on input
@@ -236,8 +285,7 @@ const Terminal: React.FC = () => {
     <div className="flex-grow p-2 sm:p-4 flex flex-col h-[calc(100vh-12rem)] md:h-screen bg-gray-900">
       <div
         ref={outputRef}
-        className="flex-grow overflow-y-auto whitespace-pre-wrap
-                   scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
+        className="flex-grow overflow-y-auto whitespace-pre-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
       >
         {output.map(renderOutputLine)}
         {isTyping && (
@@ -248,7 +296,10 @@ const Terminal: React.FC = () => {
         )}
       </div>
       <div className="h-px bg-gray-600 my-2"></div>
-      <form onSubmit={handleInputSubmit} className="flex mt-2 items-center">
+      <form
+        onSubmit={handleInputSubmit}
+        className="flex mt-2 items-center relative"
+      >
         <span className="text-blue-400 font-mono text-xs sm:text-sm md:text-base px-2">
           $
         </span>
@@ -256,10 +307,36 @@ const Terminal: React.FC = () => {
           type="text"
           value={input}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           onFocus={handleInputFocus}
           className="flex-grow bg-transparent focus:outline-none text-white font-mono text-xs sm:text-sm md:text-base p-2"
           ref={inputRef}
         />
+        {suggestions.length > 0 && (
+          <div className="absolute left-0 right-0 bottom-full bg-gray-800 border border-gray-600 rounded-t-md">
+            {suggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                className={`px-2 py-1 cursor-pointer hover:bg-gray-700 text-white font-mono text-xs sm:text-sm md:text-base flex justify-between items-center ${
+                  index === selectedSuggestionIndex ? "bg-gray-700" : ""
+                }`}
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                <span>{suggestion}</span>
+                <div className="flex items-center">
+                  <span className="text-gray-200 text-xs mr-2">
+                    {commands[suggestion as keyof typeof commands]}
+                  </span>
+                  <span className="text-cyan-300 text-xs">
+                    {index === selectedSuggestionIndex
+                      ? "Press Enter"
+                      : "Tab to select"}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </form>
     </div>
   );
