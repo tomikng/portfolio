@@ -281,7 +281,7 @@ const Terminal: React.FC = () => {
         `);
         break;
       case "school":
-        window.location.href = `${window.location.origin}/school`;
+        window.location.href = `https://mff-notes.vercel.app/`;
         break;
       default:
         startTyping(
