@@ -21,6 +21,7 @@ const commands: Command = {
   socials: "Discover where I hang out in the digital realm 🌐",
   download: "Beams my CV directly to your device 📡",
   clear: "Performs a magic trick and makes everything disappear 🎩✨",
+  school: "My school notes for fellow students 🎓",
   whoami: "Existential crisis initiator. Proceed with caution! 🤔",
   coffee: "Attempts to dispense virtual coffee. No refunds for spills ☕",
   reddit: "Nice try, but shouldn't you be coding? 😉",
@@ -32,7 +33,7 @@ const Terminal: React.FC = () => {
   const [output, setOutput] = useState<
     Array<{ text: string; color: string; isHtml?: boolean }>
   >([
-    { text: "Welcome to my portfolio!", color: "text-cyan-300" },
+    { text: "Welcome to my digital space!", color: "text-cyan-300" },
     {
       text: "For the best experience, please use a desktop browser. 🖥️",
       color: "text-yellow-300",
@@ -147,14 +148,30 @@ const Terminal: React.FC = () => {
   const processCommand = (cmd: string) => {
     switch (cmd.toLowerCase()) {
       case "help":
-        startTyping(
-          Object.entries(commands)
-            .map(
-              ([key, value]) =>
-                `<span class="text-yellow-300">${key}</span>: <span class="text-green-300">${value}</span>`,
-            )
-            .join("\n"),
-        );
+        startTyping(`
+<span class="text-cyan-300">[ General Commands ]</span>
+• <span class="text-yellow-300">help</span>: <span class="text-green-300">${commands.help}</span>
+• <span class="text-yellow-300">clear</span>: <span class="text-green-300">${commands.clear}</span>
+• <span class="text-yellow-300">exit</span>: <span class="text-green-300">${commands.exit}</span>
+
+<span class="text-cyan-300">[ About Me ]</span>
+• <span class="text-yellow-300">about</span>: <span class="text-green-300">${commands.about}</span>
+• <span class="text-yellow-300">whoami</span>: <span class="text-green-300">${commands.whoami}</span>
+
+<span class="text-cyan-300">[ Skills & Projects ]</span>
+• <span class="text-yellow-300">skills</span>: <span class="text-green-300">${commands.skills}</span>
+• <span class="text-yellow-300">projects</span>: <span class="text-green-300">${commands.projects}</span>
+
+<span class="text-cyan-300">[ Miscellaneous ]</span>
+• <span class="text-yellow-300">contact</span>: <span class="text-green-300">${commands.contact}</span>
+• <span class="text-yellow-300">socials</span>: <span class="text-green-300">${commands.socials}</span>
+• <span class="text-yellow-300">download</span>: <span class="text-green-300">${commands.download}</span>
+• <span class="text-yellow-300">coffee</span>: <span class="text-green-300">${commands.coffee}</span>
+• <span class="text-yellow-300">reddit</span>: <span class="text-green-300">${commands.reddit}</span>
+
+<span class="text-cyan-300">[ Educational ]</span>
+• <span class="text-yellow-300">school</span>: <span class="text-green-300">${commands.school}</span>
+`);
         break;
       case "about":
         startTyping(aboutMeContent);
@@ -262,6 +279,9 @@ const Terminal: React.FC = () => {
 • <span class="text-yellow-300">GitHub:</span> <a href="https://github.com/tomikng" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">github.com/tomikng</a> 🐙
 • <span class="text-yellow-300">Instagram:</span> <a href="https://instagram.com/zluteej" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">@zluteej</a> 📸
         `);
+        break;
+      case "school":
+        window.location.href = `${window.location.origin}/school`;
         break;
       default:
         startTyping(
