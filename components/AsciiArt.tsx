@@ -1,9 +1,9 @@
 import React from "react";
 
 const AsciiArt: React.FC = () => (
-  <div className="w-1/3 p-4 border-r border-gray-700 flex items-center justify-center">
+  <div className="w-full md:w-1/3 p-4 border-b md:border-b-0 md:border-r border-gray-700 flex items-center justify-center">
     <div className="text-center">
-      <pre className="text-cyan-300 text-xs inline-block text-left">
+      <pre className="text-cyan-300 text-[0.5rem] sm:text-xs md:text-sm lg:text-base inline-block text-left overflow-x-auto">
         {`
  _________  ________  _____ ______      
 |\\___   ___\\\\   __  \\|\\   _ \\  _   \\    
@@ -14,7 +14,7 @@ const AsciiArt: React.FC = () => (
         \\|__|  \\|_______|\\|__|     \\|__|
         `}
       </pre>
-      <div className="mt-4 text-yellow-300">
+      <div className="mt-4 text-yellow-300 text-sm sm:text-base">
         Welcome to my digital space!
         <br />
         Explore using the terminal.

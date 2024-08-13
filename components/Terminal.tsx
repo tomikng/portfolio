@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { aboutMeContent } from "@/aboutMeContent";
@@ -30,7 +32,7 @@ const Terminal: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  const { displayedText, isTyping, startTyping } = useTypingEffect(2);
+  const { displayedText, isTyping, startTyping } = useTypingEffect(0.5);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -207,13 +209,16 @@ const Terminal: React.FC = () => {
       return (
         <pre
           key={index}
-          className={`${line.color} font-mono`}
+          className={`${line.color} font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap`}
           dangerouslySetInnerHTML={{ __html: line.text }}
         />
       );
     } else {
       return (
-        <pre key={index} className={`${line.color} font-mono`}>
+        <pre
+          key={index}
+          className={`${line.color} font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap`}
+        >
           {line.text}
         </pre>
       );
@@ -221,7 +226,7 @@ const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="flex-grow p-4 flex flex-col h-screen bg-gray-900">
+    <div className="flex-grow p-2 sm:p-4 flex flex-col h-[calc(100vh-12rem)] md:h-screen bg-gray-900">
       <div
         ref={outputRef}
         className="flex-grow overflow-y-auto whitespace-pre-wrap
@@ -230,19 +235,21 @@ const Terminal: React.FC = () => {
         {output.map(renderOutputLine)}
         {isTyping && (
           <pre
-            className="text-white font-mono"
+            className="text-white font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap"
             dangerouslySetInnerHTML={{ __html: displayedText }}
           />
         )}
       </div>
       <div className="h-px bg-gray-600 my-2"></div>
       <form onSubmit={handleInputSubmit} className="flex mt-2">
-        <span className="mr-2 text-blue-400 font-mono">$</span>
+        <span className="mr-2 text-blue-400 font-mono text-xs sm:text-sm md:text-base">
+          $
+        </span>
         <input
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent focus:outline-none text-white font-mono"
+          className="flex-grow bg-transparent focus:outline-none text-white font-mono text-xs sm:text-sm md:text-base"
           ref={inputRef}
         />
       </form>
