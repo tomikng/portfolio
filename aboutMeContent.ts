@@ -3,7 +3,7 @@ Hello! I'm <span class="text-cyan-300">Hai Hung Nguyen</span>, but my friends ca
 I'm a <span class="text-green-300">Czech-Vietnamese fullstack developer</span> with a passion for
 computer science and web development. 🚀
 
-Born and raised in the <span class="text-yellow-300">Czech Republic</span> 🇨🇿, I grew up in the
+Born in <span class="text-yellow-300">Vietnam</span> 🇻🇳 and raised in the <span class="text-yellow-300">Czech Republic</span> 🇨🇿, I grew up in the
 beautiful town of Karlovy Vary. My heritage is <span class="text-yellow-300">Vietnamese</span> 🇻🇳,
 giving me a unique multicultural perspective. Currently, I'm
 living in <span class="text-yellow-300">Prague</span> 🏙️ while pursuing my studies.
