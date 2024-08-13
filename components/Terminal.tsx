@@ -3,8 +3,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { aboutMeContent } from "@/aboutMeContent";
+import TerminalWrapper from "./TerminalWrapper";
+import TerminalOutput from "./TerminalOutput";
+import TerminalInput from "./TerminalInput";
+import Suggestions from "./Suggestions";
 
-const commands = {
+interface Command {
+  [key: string]: string;
+}
+
+const commands: Command = {
   help: "Throws you a lifeline in this digital ocean 🛟",
   about: "Unravels the mystery of who's behind this terminal 🕵️‍♂️",
   skills: "Reveals my superpowers (no cape included) 🦸‍♂️",
@@ -20,7 +28,7 @@ const commands = {
 };
 
 const Terminal: React.FC = () => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState<string>("");
   const [output, setOutput] = useState<
     Array<{ text: string; color: string; isHtml?: boolean }>
   >([
@@ -36,7 +44,8 @@ const Terminal: React.FC = () => {
     { text: 'Type "help" to see available commands.', color: "text-cyan-300" },
   ]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] =
+    useState<number>(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -118,7 +127,6 @@ const Terminal: React.FC = () => {
     }
   };
 
-  // Prevent zooming on mobile when focusing on input
   const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.setAttribute("readonly", "readonly");
     setTimeout(() => {
@@ -257,44 +265,14 @@ const Terminal: React.FC = () => {
     }
   };
 
-  const renderOutputLine = (
-    line: { text: string; color: string; isHtml?: boolean },
-    index: number,
-  ) => {
-    if (line.isHtml) {
-      return (
-        <pre
-          key={index}
-          className={`${line.color} font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap`}
-          dangerouslySetInnerHTML={{ __html: line.text }}
-        />
-      );
-    } else {
-      return (
-        <pre
-          key={index}
-          className={`${line.color} font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap`}
-        >
-          {line.text}
-        </pre>
-      );
-    }
-  };
-
   return (
-    <div className="flex-grow p-2 sm:p-4 flex flex-col h-[calc(100vh-12rem)] md:h-screen bg-gray-900">
-      <div
-        ref={outputRef}
-        className="flex-grow overflow-y-auto whitespace-pre-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
-      >
-        {output.map(renderOutputLine)}
-        {isTyping && (
-          <pre
-            className="text-white font-mono text-xs sm:text-sm md:text-base break-words whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ __html: displayedText }}
-          />
-        )}
-      </div>
+    <TerminalWrapper>
+      <TerminalOutput
+        output={output}
+        isTyping={isTyping}
+        displayedText={displayedText}
+        outputRef={outputRef}
+      />
       <div className="h-px bg-gray-600 my-2"></div>
       <form
         onSubmit={handleInputSubmit}
@@ -303,42 +281,23 @@ const Terminal: React.FC = () => {
         <span className="text-blue-400 font-mono text-xs sm:text-sm md:text-base px-2">
           $
         </span>
-        <input
-          type="text"
+        <TerminalInput
           value={input}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={handleInputFocus}
-          className="flex-grow bg-transparent focus:outline-none text-white font-mono text-xs sm:text-sm md:text-base p-2"
-          ref={inputRef}
+          inputRef={inputRef}
         />
         {suggestions.length > 0 && (
-          <div className="absolute left-0 right-0 bottom-full bg-gray-800 border border-gray-600 rounded-t-md">
-            {suggestions.map((suggestion, index) => (
-              <div
-                key={index}
-                className={`px-2 py-1 cursor-pointer hover:bg-gray-700 text-white font-mono text-xs sm:text-sm md:text-base flex justify-between items-center ${
-                  index === selectedSuggestionIndex ? "bg-gray-700" : ""
-                }`}
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
-                <span>{suggestion}</span>
-                <div className="flex items-center">
-                  <span className="text-gray-200 text-xs mr-2">
-                    {commands[suggestion as keyof typeof commands]}
-                  </span>
-                  <span className="text-cyan-300 text-xs">
-                    {index === selectedSuggestionIndex
-                      ? "Press Enter"
-                      : "Tab to select"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Suggestions
+            suggestions={suggestions}
+            selectedIndex={selectedSuggestionIndex}
+            onSuggestionClick={handleSuggestionClick}
+            commands={commands}
+          />
         )}
       </form>
-    </div>
+    </TerminalWrapper>
   );
 };
 
