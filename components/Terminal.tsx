@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
+import { aboutMeContent } from "@/aboutMeContent";
 
 const commands = {
-  help: "Shows available commands",
-  about: "Displays information about me",
-  skills: "Lists my technical skills",
-  projects: "Shows my projects",
-  contact: "Displays my contact information",
-  clear: "Clears the terminal",
+  help: "Throws you a lifeline in this digital ocean 🛟",
+  about: "Unravels the mystery of who's behind this terminal 🕵️‍♂️",
+  skills: "Reveals my superpowers (no cape included) 🦸‍♂️",
+  projects: "Showcases my digital offspring 👨‍💻",
+  contact: "Summons my virtual bat-signal 🦇",
+  socials: "Discover where I hang out in the digital realm 🌐",
+  download: "Beams my CV directly to your device 📡",
+  clear: "Performs a magic trick and makes everything disappear 🎩✨",
+  whoami: "Existential crisis initiator. Proceed with caution! 🤔",
+  coffee: "Attempts to dispense virtual coffee. No refunds for spills ☕",
+  reddit: "Nice try, but shouldn't you be coding? 😉",
+  exit: "There is no escape. You're here forever. Muahaha! 🏃‍♂️🚪",
 };
 
 const Terminal: React.FC = () => {
@@ -23,7 +30,7 @@ const Terminal: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  const { displayedText, isTyping, startTyping } = useTypingEffect(10);
+  const { displayedText, isTyping, startTyping } = useTypingEffect(2);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -60,6 +67,16 @@ const Terminal: React.FC = () => {
     setInput("");
   };
 
+  const downloadCV = () => {
+    const cvUrl = "/CV.pdf";
+    const link = document.createElement("a");
+    link.href = cvUrl;
+    link.download = "Tomas_Nguyen_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const processCommand = (cmd: string) => {
     switch (cmd.toLowerCase()) {
       case "help":
@@ -73,23 +90,107 @@ const Terminal: React.FC = () => {
         );
         break;
       case "about":
-        startTyping(
-          "I'm a passionate developer with experience in web technologies.",
-        );
+        startTyping(aboutMeContent);
         break;
       case "skills":
-        startTyping("TypeScript, React, Next.js, Tailwind CSS, Node.js");
+        startTyping(`
+<span class="text-cyan-300">[ Technical Skills ]</span> 💻
+• Frontend: React ⚛️, JavaScript 🌐
+• Backend: Django 🐍, Node.js 🟢, PHP 🐘
+• Languages: Python 🐍, C# 🖥️, Java ☕, Kotlin 📱, C++ 🖥️
+• Database: SQL 📊
+• Others: LaTeX 📄
+      `);
         break;
       case "projects":
-        startTyping(
-          "1. This terminal portfolio\n2. E-commerce platform\n3. Weather app",
-        );
+        startTyping(`
+<span class="text-cyan-300">[ Notable Projects ]</span> 🏗️
+
+1. <span class="text-yellow-300">Web Crawler with UI</span>
+   • <span class="text-green-300">Tech Stack:</span> React, Django, PostgreSQL, MaterialUI
+   • <span class="text-green-300">Description:</span> A web application that crawls websites and presents the data in a user-friendly interface.
+   • <span class="text-green-300">Key Features:</span> Customizable crawl parameters, data visualization, export functionality
+
+2. <span class="text-yellow-300">Guest Form for Booking</span>
+   • <span class="text-green-300">Tech Stack:</span> React, Django, PostgreSQL, MaterialUI
+   • <span class="text-green-300">Description:</span> A streamlined booking system for managing guest reservations.
+   • <span class="text-green-300">Key Features:</span> Real-time availability, user authentication, email notifications
+
+3. <span class="text-yellow-300">Web-based POS System - Bachelor thesis</span>
+   • <span class="text-green-300">Tech Stack:</span> React, Django, PostgreSQL, AntUI
+   • <span class="text-green-300">Description:</span> A comprehensive point-of-sale system designed for modern businesses.
+   • <span class="text-green-300">Key Features:</span> Inventory management, sales analytics, multi-user support
+   • <span class="text-green-300">Link:</span> <a href="http://tirpitz.ms.mff.cuni.cz:3003/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View Project</a>
+
+4. <span class="text-yellow-300">URL Search Engine (Python)</span>
+   • <span class="text-green-300">Description:</span> A custom search engine implementation for indexing and searching URLs.
+   • <span class="text-green-300">Key Features:</span> Fast indexing, relevance ranking, keyword highlighting
+   • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/URL-Search-Engine" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
+
+5. <span class="text-yellow-300">Java-todolist</span>
+   • <span class="text-green-300">Tech Stack:</span> Java
+   • <span class="text-green-300">Description:</span> Project for nprg013 at MFFUK
+   • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/Java-todolist" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
+
+6. <span class="text-yellow-300">eafc-api</span>
+   • <span class="text-green-300">Tech Stack:</span> C#
+   • <span class="text-green-300">Description:</span> Basic Notification Bot for EAFC new players
+   • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/eafc-api" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
+
+7. <span class="text-yellow-300">Higher-order-EASE</span>
+   • <span class="text-green-300">Tech Stack:</span> Python
+   • <span class="text-green-300">Description:</span> Implementation of Higher-order Collaborative Filtering for 
+   Improved Recommendation Systems using forked EasyStudy Framework
+   • <span class="text-green-300">Note:</span> Forked from pdokoupil/EasyStudy
+   • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/Higher-order-EASE" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
+
+      `);
         break;
       case "contact":
-        startTyping("Email: example@email.com\nGitHub: github.com/example");
+        startTyping(`
+<span class="text-cyan-300">[ Contact Information ]</span> 📬
+• <span class="text-yellow-300">Email:</span> tomasnguyen43@gmail.com 📧
+• <span class="text-yellow-300">Phone:</span> (+420) 720 072 938 📞
+• <span class="text-yellow-300">LinkedIn:</span> linkedin.com/in/hai-hung-nguyen/ 🔗
+      `);
+        break;
+      case "download":
+        downloadCV();
+        startTyping(`
+<span class="text-green-400">Downloading CV... </span>✅
+<span class="text-yellow-300">If the download doesn't start automatically, please check your browser settings.</span>
+      `);
         break;
       case "clear":
         setOutput([]);
+        break;
+      case "whoami":
+        startTyping(
+          "You are you, unless you're not. In that case, who are you? 🤯",
+        );
+        break;
+      case "coffee":
+        startTyping(
+          "☕ *virtual coffee materializes* Oops, it spilled on your keyboard!",
+        );
+        break;
+      case "reddit":
+        startTyping(
+          "Nice try! But remember, with great programming power comes great Reddit responsibility. 🕷️",
+        );
+        break;
+      case "exit":
+        startTyping(
+          "Error 404: Exit not found. You're stuck with my awesome terminal forever! 😄",
+        );
+        break;
+      case "socials":
+        startTyping(`
+<span class="text-cyan-300">[ Social Media ]</span> 🌐
+• <span class="text-yellow-300">LinkedIn:</span> <a href="https://linkedin.com/in/hai-hung-nguyen/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">linkedin.com/in/hai-hung-nguyen/</a> 💼
+• <span class="text-yellow-300">GitHub:</span> <a href="https://github.com/tomikng" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">github.com/tomikng</a> 🐙
+• <span class="text-yellow-300">Instagram:</span> <a href="https://instagram.com/zluteej" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">@zluteej</a> 📸
+        `);
         break;
       default:
         startTyping(
@@ -106,13 +207,13 @@ const Terminal: React.FC = () => {
       return (
         <pre
           key={index}
-          className={line.color}
+          className={`${line.color} font-mono`}
           dangerouslySetInnerHTML={{ __html: line.text }}
         />
       );
     } else {
       return (
-        <pre key={index} className={line.color}>
+        <pre key={index} className={`${line.color} font-mono`}>
           {line.text}
         </pre>
       );
@@ -120,7 +221,7 @@ const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="flex-grow p-4 flex flex-col h-screen">
+    <div className="flex-grow p-4 flex flex-col h-screen bg-gray-900">
       <div
         ref={outputRef}
         className="flex-grow overflow-y-auto whitespace-pre-wrap
@@ -129,19 +230,19 @@ const Terminal: React.FC = () => {
         {output.map(renderOutputLine)}
         {isTyping && (
           <pre
-            className="text-white"
+            className="text-white font-mono"
             dangerouslySetInnerHTML={{ __html: displayedText }}
           />
         )}
       </div>
       <div className="h-px bg-gray-600 my-2"></div>
       <form onSubmit={handleInputSubmit} className="flex mt-2">
-        <span className="mr-2 text-blue-400">$</span>
+        <span className="mr-2 text-blue-400 font-mono">$</span>
         <input
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent focus:outline-none text-white"
+          className="flex-grow bg-transparent focus:outline-none text-white font-mono"
           ref={inputRef}
         />
       </form>
