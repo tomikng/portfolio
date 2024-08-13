@@ -32,7 +32,7 @@ const Terminal: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  const { displayedText, isTyping, startTyping } = useTypingEffect(0.5);
+  const { displayedText, isTyping, startTyping } = useTypingEffect(2);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -67,6 +67,14 @@ const Terminal: React.FC = () => {
     ]);
     processCommand(input);
     setInput("");
+  };
+
+  // Prevent zooming on mobile when focusing on input
+  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.setAttribute("readonly", "readonly");
+    setTimeout(() => {
+      e.target.removeAttribute("readonly");
+    }, 100);
   };
 
   const downloadCV = () => {
@@ -145,7 +153,6 @@ const Terminal: React.FC = () => {
    Improved Recommendation Systems using forked EasyStudy Framework
    • <span class="text-green-300">Note:</span> Forked from pdokoupil/EasyStudy
    • <span class="text-green-300">Link:</span> <a href="https://github.com/tomikng/Higher-order-EASE" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
-
       `);
         break;
       case "contact":
@@ -241,15 +248,16 @@ const Terminal: React.FC = () => {
         )}
       </div>
       <div className="h-px bg-gray-600 my-2"></div>
-      <form onSubmit={handleInputSubmit} className="flex mt-2">
-        <span className="mr-2 text-blue-400 font-mono text-xs sm:text-sm md:text-base">
+      <form onSubmit={handleInputSubmit} className="flex mt-2 items-center">
+        <span className="text-blue-400 font-mono text-xs sm:text-sm md:text-base px-2">
           $
         </span>
         <input
           type="text"
           value={input}
           onChange={handleInputChange}
-          className="flex-grow bg-transparent focus:outline-none text-white font-mono text-xs sm:text-sm md:text-base"
+          onFocus={handleInputFocus}
+          className="flex-grow bg-transparent focus:outline-none text-white font-mono text-xs sm:text-sm md:text-base p-2"
           ref={inputRef}
         />
       </form>
