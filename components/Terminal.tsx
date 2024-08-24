@@ -231,7 +231,13 @@ const Terminal: React.FC = () => {
 8. <span class="text-yellow-300">Android-todo-list</span>
     • <span class="text-green-300">Tech Stack:</span> Kotlin
     • <span class="text-green-300">Description:</span> Simple Android todo list
-    • <span class="text-green-300">Link:</span> <a href="https://gitlab.mff.cuni.cz/nguyeha/android-todo-list" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitLab</a>  
+    • <span class="text-green-300">Link:</span> <a href="https://gitlab.mff.cuni.cz/nguyeha/android-todo-list" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitLab</a>
+
+9. <span class="text-yellow-300">Pomodoro App</span>
+    • <span class="text-green-300">Tech Stack:</span> Next.js, shadcn/ui
+    • <span class="text-green-300">Description:</span> A Pomodoro timer application to boost productivity
+    • <span class="text-green-300">Key Features:</span> Customizable timer settings, task tracking, break reminders
+    • <span class="text-green-300">Link:</span> <a href="https://pomodoro.tom-nguyen.dev" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">View on GitHub</a>
 `);
         break;
       case "contact":
